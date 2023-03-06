@@ -37,7 +37,11 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
 
   const srcUrl = `https://raw.githubusercontent.com/azurystudio/engine/${Deno.args[0] ?? version}`
 
-  let workerString = (await (await fetch(`${srcUrl}/worker.ts`)).text())
+  let workerString = (await (await fetch(`${srcUrl}/worker.ts`, {
+    headers: {
+      authorization: `bearer ${Deno.env.get('DENO_AUTH_TOKENS')?.replace('@raw.githubusercontent.com', '')}`
+    }
+  })).text())
       .replace(
         'config = (null as unknown)',
         `config = ${JSON.stringify(config)}`,
