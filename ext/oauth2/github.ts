@@ -1,5 +1,5 @@
 import queryString from 'https://esm.sh/query-string@8.1.0?pin=v110'
-import type { FetchContext } from '../../core/FetchContext.d.ts'
+import type { FetchContext } from '../../FetchContext.d.ts'
 
 export interface GithubUser {
   id: number

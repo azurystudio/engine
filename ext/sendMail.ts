@@ -1,4 +1,4 @@
-import type { FetchContext } from '../core/FetchContext.d.ts'
+import type { FetchContext } from '../FetchContext.d.ts'
 
 type MailContact =
   | { name?: string; email: string }
