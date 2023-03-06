@@ -55,12 +55,12 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
         `import type { ParsedConfiguration } from '${srcUrl}/Configuration.d.ts'`,
       )
       .replace(
-        `import type { CronContext } from  './cron.ts'`,
-        `import type { CronContext } from  '${srcUrl}/cron.ts'`,
+        `import type { CronContext } from './cron.ts'`,
+        `import type { CronContext } from '${srcUrl}/cron.ts'`,
       )
       .replace(
-        `import type { MailContext } from  './mail.ts'`,
-        `import type { MailContext } from  '${srcUrl}/mail.ts'`,
+        `import type { MailContext } from './mail.ts'`,
+        `import type { MailContext } from '${srcUrl}/mail.ts'`,
       )
       .replace(
         `import type { Route } from './Route.d.ts'`,
@@ -175,14 +175,7 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
   }).status()
 
   // define globals
-  await Deno.create(join(tmpDir, './bundle.final.js'))
-
-  await Deno.run({
-    cmd: ['deno', 'bundle', '-q', './worker.ts', './bundle.final.js'],
-    cwd: tmpDir,
-  }).status()
-
-  let bundledCode = await Deno.readTextFile(join(tmpDir, './bundle.final.js'))
+  let bundledCode = await Deno.readTextFile(join(tmpDir, './bundle.js'))
 
   // global utilities
   let darkflareNamespace = ''
@@ -223,7 +216,14 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
     }
   }
 
-  await Deno.writeTextFile(join(tmpDir, './bundle.final.js'), bundledCode)
+  await Deno.writeTextFile(join(tmpDir, './bundle.js'), bundledCode)
+
+  await Deno.create(join(tmpDir, './bundle.final.js'))
+
+  await Deno.run({
+    cmd: ['deno', 'bundle', '-q', './bundle.js', './bundle.final.js'],
+    cwd: tmpDir,
+  }).status()
 
   // create final javascript bundle
   await ensureDir(join(Deno.cwd(), './dist'))
