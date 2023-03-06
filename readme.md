@@ -8,13 +8,13 @@ DENO_AUTH_TOKENS=github_pat_11AO4WNEQ0ABOu7k1U9rGS_XqA9jhiKtVWzIUUSl3pfZKKpXbcIQ
 
 #### 👷 Build
 
-##### Production
+###### Production
 
 ```bash
 deno run -A https://raw.githubusercontent.com/azurystudio/engine/v0.1.0/build.ts
 ```
 
-##### Development
+###### Development
 
 ```bash
 deno run -A https://raw.githubusercontent.com/azurystudio/engine/dev/build.ts
