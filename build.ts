@@ -202,7 +202,7 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
     }
   }
 
-  bundledCode = `const Darkflare = {}\n` + bundledCode
+  bundledCode = `const Darkflare = {${darkflareNamespace}}\n` + bundledCode
 
   bundledCode = `import v from '${srcUrl}/v.ts'\n` + bundledCode
   bundledCode =
@@ -254,3 +254,5 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
   } else {
     await warn(`your worker script is too large ${italic(byte(size))}`)
   }
+
+Deno.exit()
