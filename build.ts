@@ -247,7 +247,7 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
   )
 
   // remove temporary directory to save storage
-  await Deno.remove(tmpDir, { recursive: true })
+  //await Deno.remove(tmpDir, { recursive: true })
 
   // print the size of the worker script to the console
   const { size } = await Deno.stat(join(Deno.cwd(), './worker.js'))
