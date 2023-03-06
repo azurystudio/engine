@@ -183,7 +183,7 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
   let bundledCode = await Deno.readTextFile(join(tmpDir, './bundle.final.js'))
 
   // global utilities
-  const darkflareNamespace: Record<string, string> = {}
+  let darkflareNamespace = ''
 
   const globalModules = [
     'jwt',
@@ -198,11 +198,11 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
 
   for (const globalModule of globalModules) {
     if (bundledCode.includes(`Darkflare.${globalModule}`)) {
-      darkflareNamespace[globalModule] = `__global${globalModule}`
+      darkflareNamespace += `${globalModule}: __global${globalModule},\n`
     }
   }
 
-  bundledCode = `const Darkflare = ${darkflareNamespace}\n` + bundledCode
+  bundledCode = `const Darkflare = {}\n` + bundledCode
 
   bundledCode = `import v from '${srcUrl}/v.ts'\n` + bundledCode
   bundledCode =
