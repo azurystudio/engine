@@ -9,16 +9,9 @@ import slash from 'https://esm.sh/slash@5.0.0?pin=v110'
 import { parseConfiguration } from './parseConfiguration.ts'
 import { parseRoute } from './parseRoute.ts'
 import version from './version.json' assert { type: 'json' }
+import { parse } from 'https://deno.land/std@v0.178.0/flags/mod.ts'
 
-let isDev = false
-
-try {
-  await Deno.readFile('./worker.ts')
-
-  isDev = true
-} catch (_err) {
-  isDev = false
-}
+const args = parse(Deno.args)
 
 const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
     config = await parseConfiguration(tmpDir)
@@ -43,7 +36,7 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
     await Deno.copyFile(path, dest)
   }
 
-  const srcUrl = `https://raw.githubusercontent.com/azurystudio/engine/${isDev ? 'dev' : version}`
+  const srcUrl = `https://raw.githubusercontent.com/azurystudio/engine/${args.version ?? version}`
 
   let workerString = (await (await fetch(`${srcUrl}/worker.ts`)).text())
       .replace(
