@@ -13,6 +13,8 @@ import version from './version.json' assert { type: 'json' }
 const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
     config = await parseConfiguration(tmpDir)
 
+console.log(tmpDir)
+
   // copy files to temporary directory
   for await (const path of files(Deno.cwd())) {
     if (
