@@ -1,4 +1,4 @@
-import * as Realm from 'https://esm.sh/realm-web@2.0.0?pin=v110'
+import * as Realm from 'https://cdn.skypack.dev/realm-web@2.0.0?dts'
 import router from './router.ts'
 import type { CloudflareRequest } from './CloudflareRequest.d.ts'
 import type { ParsedConfiguration } from './Configuration.d.ts'
