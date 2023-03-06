@@ -2,8 +2,10 @@
 
 #### ⚙️ Environment Variable
 
+###### Windows
+
 ```bash
-DENO_AUTH_TOKENS=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@raw.githubusercontent.com
+setx DENO_AUTH_TOKENS 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@raw.githubusercontent.com
 ```
 
 #### 👷 Build
