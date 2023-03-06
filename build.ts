@@ -10,6 +10,16 @@ import { parseConfiguration } from './parseConfiguration.ts'
 import { parseRoute } from './parseRoute.ts'
 import version from './version.json' assert { type: 'json' }
 
+let isDev = false
+
+try {
+  await Deno.readFile('./worker.ts')
+
+  isDev = true
+} catch (_err) {
+  isDev = false
+}
+
 const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
     config = await parseConfiguration(tmpDir)
 
@@ -33,7 +43,7 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
     await Deno.copyFile(path, dest)
   }
 
-  const srcUrl = `https://raw.githubusercontent.com/azurystudio/engine/${version}`
+  const srcUrl = `https://raw.githubusercontent.com/azurystudio/engine/${isDev ? 'dev' : version}`
 
   let workerString = (await (await fetch(`${srcUrl}/worker.ts`)).text())
       .replace(
