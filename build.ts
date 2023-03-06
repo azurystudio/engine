@@ -10,6 +10,8 @@ import { parseConfiguration } from './parseConfiguration.ts'
 import { parseRoute } from './parseRoute.ts'
 import version from './version.json' assert { type: 'json' }
 
+console.log(Deno.args[0])
+
 const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
     config = await parseConfiguration(tmpDir)
 
