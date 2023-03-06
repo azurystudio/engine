@@ -1,4 +1,4 @@
-import { isValid, TypeSchema } from 'https://deno.land/x/typemap@v0.1.3/mod.ts'
+import { isValid, TypeSchema } from 'https://deno.land/x/typemap@v0.1.5/mod.ts'
 import type { FetchContext } from './FetchContext.d.ts'
 import type { Route } from './Route.d.ts'
 
