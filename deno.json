@@ -14,9 +14,7 @@
   },
   "tasks": {
     "test": "deno test -A --fail-fast",
-    "test:build": "deno run -A ../cli/dev.ts build --dev=no-minify",
-    "test:publish": "cd worker && deno run -A ../cli/dev.ts build --dev=97703e33b960884f6582b004016c0562e4f8619a && npx wrangler publish dist/worker.js",
-    "client:types": "cd client && npx -p typescript tsc --target esnext --module es2022 --lib \"dom,dom.iterable,esnext\" --declaration --emitDeclarationOnly --outDir types --newLine lf mod.ts && cp types/mod.d.ts index.d.ts && rm -rf types",
-    "client": "cd client && deno run -A https://deno.land/x/esbuild@v0.17.11/mod.js mod.ts --bundle --minify --allow-overwrite --format=esm --outfile=index.js && cp ../license license && cp ../readme.md readme.md && deno task client:types && npm publish --access public && rm readme.md && rm license && rm index.js && rm index.d.ts"
+    "build": "cd test && deno run -A https://raw.githubusercontent.com/azurystudio/engine/23c7c5d/build.ts 23c7c5d",
+    "publish": "deno task build && npx wrangler publish test/worker.js"
   }
 }
