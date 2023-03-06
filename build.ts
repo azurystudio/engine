@@ -10,8 +10,6 @@ import { parseConfiguration } from './parseConfiguration.ts'
 import { parseRoute } from './parseRoute.ts'
 import version from './version.json' assert { type: 'json' }
 
-console.log(Deno.args[0])
-
 const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
     config = await parseConfiguration(tmpDir)
 
@@ -59,12 +57,12 @@ const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
         `import type { ParsedConfiguration } from '${srcUrl}/Configuration.d.ts'`,
       )
       .replace(
-        `import type { CronContext } from './cron.ts'`,
-        `import type { CronContext } from '${srcUrl}/cron.ts'`,
+        `import type { CronContext } from './Cron.ts'`,
+        `import type { CronContext } from '${srcUrl}/Cron.ts'`,
       )
       .replace(
-        `import type { MailContext } from './mail.ts'`,
-        `import type { MailContext } from '${srcUrl}/mail.ts'`,
+        `import type { MailContext } from './Mail.ts'`,
+        `import type { MailContext } from '${srcUrl}/Mail.ts'`,
       )
       .replace(
         `import type { Route } from './Route.d.ts'`,
