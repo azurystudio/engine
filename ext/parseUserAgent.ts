@@ -1,4 +1,4 @@
-import { UAParser } from 'https://esm.sh/ua-parser-js@1.0.33?pin=v110'
+import { UAParser } from 'https://cdn.skypack.dev/ua-parser-js@1.0.33?dts'
 import type { FetchContext } from '../FetchContext.d.ts'
 
 export function parseUserAgent(c: FetchContext) {

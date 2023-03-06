@@ -1,5 +1,5 @@
 import { assertEquals } from 'https://deno.land/std@v0.178.0/testing/asserts.ts'
-import { nanoid } from 'https://esm.sh/nanoid@4.0.1/async?pin=v110'
+import { nanoid } from 'https://cdn.skypack.dev/nanoid@4.0.1/async?dts'
 import { encrypt } from './encrypt.ts'
 import { decrypt } from './decrypt.ts'
 

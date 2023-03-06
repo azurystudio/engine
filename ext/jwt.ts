@@ -3,7 +3,7 @@ import {
   verify as _verify,
   VerifyOptions,
 } from 'https://deno.land/x/djwt@v2.8/mod.ts'
-import ms from 'https://esm.sh/ms@2.1.3?pin=v110'
+import ms from 'https://cdn.skypack.dev/ms@2.1.3?dts'
 import { encrypt } from './encrypt.ts'
 import { decrypt } from './decrypt.ts'
 

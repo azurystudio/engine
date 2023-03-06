@@ -1,4 +1,4 @@
-import queryString from 'https://esm.sh/query-string@8.1.0?pin=v110'
+import queryString from 'https://cdn.skypack.dev/query-string@8.1.0?dts'
 import type { FetchContext } from '../../FetchContext.d.ts'
 
 export interface GithubUser {
