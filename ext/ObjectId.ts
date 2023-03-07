@@ -1,1 +1,1 @@
-export { ObjectId } from 'https://deno.land/x/typemap@v0.1.9/mod.ts'
+export { ObjectId } from 'https://cdn.skypack.dev/bson@v5.0.1?dts'
