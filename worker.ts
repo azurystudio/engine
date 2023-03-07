@@ -1,4 +1,4 @@
-import { App, Credentials } from 'https://esm.sh/realm-web@2.0.0?exports=App,Credentials'
+import { App, Credentials } from 'https://cdn.jsdelivr.net/npm/realm-web@2.0.0/+esm'
 import router from './router.ts'
 import type { CloudflareRequest } from './CloudflareRequest.d.ts'
 import type { ParsedConfiguration } from './Configuration.d.ts'
