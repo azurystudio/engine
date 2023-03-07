@@ -243,6 +243,7 @@ await build({
   minify: true,
   legalComments: 'none',
   format: 'esm',
+  target: 'es2020',
   outfile: join(Deno.cwd(), './worker.js'),
 })
 
