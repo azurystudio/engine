@@ -1,7 +1,7 @@
 import type {
   Static,
   TypeSchema,
-} from 'https://deno.land/x/typemap@v0.1.5/mod.ts'
+} from 'https://deno.land/x/typemap@v0.1.6/mod.ts'
 import type { CloudflareRequest } from './CloudflareRequest.d.ts'
 import type { Context } from './Context.d.ts'
 
