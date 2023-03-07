@@ -197,6 +197,7 @@ const globalModules = [
   'encrypt',
   'decrypt',
   'ObjectId',
+  'parseUserAgent',
   'Schema',
 ]
 
@@ -235,7 +236,6 @@ await Deno.run({
 }).status()
 
 // create final javascript bundle
-await ensureDir(join(Deno.cwd(), './dist'))
 
 await build({
   entryPoints: [join(tmpDir, './bundle.final.js')],
@@ -245,6 +245,11 @@ await build({
   format: 'esm',
   outfile: join(Deno.cwd(), './worker.js'),
 })
+
+await Deno.writeTextFile(
+  join(Deno.cwd(), './worker.js'),
+  (await Deno.readTextFile(join(Deno.cwd(), './worker.js'))).replace('try{return(await import("/npm/crypto/+esm")).randomBytes}', 'try{throw new Error()}')
+)
 
 // exclude file from linting
 await Deno.writeTextFile(
