@@ -209,9 +209,9 @@ for (const globalModule of globalModules) {
 
 bundledCode = `const Core = {${darkflareNamespace}}\n` + bundledCode
 
-bundledCode = `import v from '${srcUrl}/v.ts'\n` + bundledCode
+bundledCode = `import v from 'https://deno.land/x/typemap@v0.1.10/mod.ts'\n` + bundledCode
 bundledCode =
-  `import { Delete, Get, Head, Patch, Post, Put } from '${srcUrl}/route.ts'\n` +
+  `import { route as Delete, route as Get, route as Head, route as Patch, route as Post, route as Put } from '${srcUrl}/route.ts'\n` +
   bundledCode
 bundledCode = `import { Cron } from '${srcUrl}/Cron.ts'\n` +
   bundledCode
@@ -239,26 +239,16 @@ await Deno.run({
 
 await build({
   entryPoints: [join(tmpDir, './bundle.final.js')],
-  bundle: true,
   minify: true,
+  allowOverwrite: true,
   legalComments: 'none',
   format: 'esm',
   target: 'es2020',
   outfile: join(Deno.cwd(), './worker.js'),
+  banner: {
+    js: '// @ts-nocheck\n// deno-fmt-ignore-file\n// deno-lint-ignore-file\nvar window={__d:{}};' // disable type checking/linting/formatting
+  }
 })
-
-await Deno.writeTextFile(
-  join(Deno.cwd(), './worker.js'),
-  (await Deno.readTextFile(join(Deno.cwd(), './worker.js'))).replace('try{return(await import("/npm/crypto/+esm")).randomBytes}', 'try{throw new Error()}')
-)
-
-// exclude file from linting
-await Deno.writeTextFile(
-  join(Deno.cwd(), './worker.js'),
-  `// deno-lint-ignore-file\nvar window={__d:{}};${await Deno.readTextFile(
-    join(Deno.cwd(), './worker.js'),
-  )}`,
-)
 
 // remove temporary directory to save storage
 await Deno.remove(tmpDir, { recursive: true })

@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "types": [
+      "https://raw.githubusercontent.com/azurystudio/engine/491971e/types.d.ts"
+    ]
+  }
+}

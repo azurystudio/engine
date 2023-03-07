@@ -14,7 +14,7 @@
   },
   "tasks": {
     "test": "deno test -A --fail-fast",
-    "build": "cd test && deno run -A https://raw.githubusercontent.com/azurystudio/engine/23c7c5d/build.ts 23c7c5d",
+    "build": "cd test && deno run -A ../build.ts 38f21c0",
     "publish": "deno task build && npx wrangler publish test/worker.js"
   }
 }
