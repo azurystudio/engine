@@ -1,4 +1,4 @@
-import * as Realm from 'https://cdn.skypack.dev/realm-web@2.0.0?dts'
+import { App, Credentials } from 'https://esm.sh/realm-web@2.0.0?exports=App,Credentials'
 import router from './router.ts'
 import type { CloudflareRequest } from './CloudflareRequest.d.ts'
 import type { ParsedConfiguration } from './Configuration.d.ts'
@@ -33,8 +33,8 @@ async function setup(env: any) {
     env.realm_app && env.realm_token && env.realm_database &&
     !window.__d.database
   ) {
-    const app = new Realm.App(env.realm_app),
-      credentials = Realm.Credentials.apiKey(env.realm_token),
+    const app = new App(env.realm_app),
+      credentials = Credentials.apiKey(env.realm_token),
       user = await app.logIn(credentials),
       client = user.mongoClient('mongodb-atlas')
 
