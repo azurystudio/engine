@@ -20,9 +20,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-type Binary = import('https://cdn.skypack.dev/bson@5.0.1?dts').Binary
-type Long = import('https://cdn.skypack.dev/bson@5.0.1?dts').Long
-type Timestamp = import('https://cdn.skypack.dev/bson@5.0.1?dts').Timestamp
+type Binary = import('https://cdn.jsdelivr.net/npm/bson@5.0.1/bson.d.ts').Binary
+type Long = import('https://cdn.jsdelivr.net/npm/bson@5.0.1/bson.d.ts').Long
+type Timestamp =
+  import('https://cdn.jsdelivr.net/npm/bson@5.0.1/bson.d.ts').Timestamp
 
 declare namespace Realm {
   /**

@@ -1,11 +1,11 @@
 import { join } from 'https://deno.land/std@v0.178.0/path/mod.ts'
-import ms from 'https://esm.sh/ms@2.1.3?pin=v110'
-import yaml from 'https://esm.sh/yaml@2.2.1?pin=v110'
-import { nanoid } from 'https://esm.sh/nanoid@4.0.1/async?pin=v110'
-import type {
-  Configuration,
-  ParsedConfiguration,
-} from './Configuration.d.ts'
+// @deno-types='https://cdn.jsdelivr.net/npm/@types/ms@0.7.31/index.d.ts'
+import ms from 'https://cdn.jsdelivr.net/npm/ms@2.1.3/+esm'
+// @deno-types='https://cdn.jsdelivr.net/npm/yaml@2.2.1/dist/index.d.ts'
+import yaml from 'https://cdn.jsdelivr.net/npm/yaml@2.2.1/+esm'
+// @deno-types='https://cdn.jsdelivr.net/npm/nanoid@4.0.1/async/index.d.ts'
+import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid@4.0.1/async/index.browser.js/+esm'
+import type { Configuration, ParsedConfiguration } from './Configuration.d.ts'
 
 export async function parseConfiguration(
   tmpDir: string,

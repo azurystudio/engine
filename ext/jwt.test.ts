@@ -1,5 +1,6 @@
 import { assertEquals } from 'https://deno.land/std@v0.178.0/testing/asserts.ts'
-import { nanoid } from 'https://cdn.skypack.dev/nanoid@4.0.1/async?dts'
+// @deno-types='https://cdn.jsdelivr.net/npm/nanoid@4.0.1/async/index.d.ts'
+import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid@4.0.1/async/index.browser.js/+esm'
 import { jwt } from './jwt.ts'
 
 Deno.test('jwt module', async (t) => {

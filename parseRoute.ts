@@ -1,5 +1,5 @@
 import { build } from 'https://deno.land/x/esbuild@v0.17.11/mod.js'
-import slash from 'https://esm.sh/slash@5.0.0?pin=v110'
+import { slash } from './_utilities/slash.ts'
 import { italic } from 'https://deno.land/std@v0.178.0/fmt/colors.ts'
 
 export async function parseRoute(path: string): Promise<[string, string]> {

@@ -1,4 +1,5 @@
-import { UAParser } from 'https://cdn.skypack.dev/ua-parser-js@1.0.34?dts'
+// @deno-types='https://cdn.jsdelivr.net/npm/@types/ua-parser-js@0.7.36/index.d.ts'
+import { UAParser } from 'https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.34/dist/ua-parser.pack.js'
 import type { FetchContext } from '../FetchContext.d.ts'
 
 export function parseUserAgent(c: FetchContext) {

@@ -3,7 +3,8 @@ import {
   verify as _verify,
   VerifyOptions,
 } from 'https://deno.land/x/djwt@v2.8/mod.ts'
-import ms from 'https://cdn.skypack.dev/ms@2.1.3?dts'
+// @deno-types='https://cdn.jsdelivr.net/npm/@types/ms@0.7.31/index.d.ts'
+import ms from 'https://cdn.jsdelivr.net/npm/ms@2.1.3/+esm'
 import { encrypt } from './encrypt.ts'
 import { decrypt } from './decrypt.ts'
 

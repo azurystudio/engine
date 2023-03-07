@@ -1,4 +1,4 @@
-import queryString from 'https://cdn.skypack.dev/query-string@8.1.0?dts'
+import { stringifyQueryParams } from '../../_utilities/stringifyQueryParams.ts'
 import type { FetchContext } from '../../FetchContext.d.ts'
 
 export interface GithubUser {
@@ -107,7 +107,7 @@ const github = {
       throw new Error('Please configure the oauth2 module!')
     }
 
-    const query = queryString.stringify({
+    const query = stringifyQueryParams({
       client_id: clientId,
       scope: (scope ?? ['read:user']).join(' '),
       allow_signup: true,
