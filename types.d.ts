@@ -25,4 +25,4 @@ declare const Put: typeof import('./route.ts').route
 declare const Cron: typeof import('./Cron.ts').Cron
 declare const Mail: typeof import('./Mail.ts').Mail
 
-declare const v: typeof import('./v.ts').v
+declare const v: typeof import('https://deno.land/x/typemap@v0.1.10/mod.ts').default
