@@ -1,4 +1,3 @@
-// @deno-types='https://cdn.jsdelivr.net/npm/realm-web@2.0.0/types/realm/index.d.ts'
 import * as Realm from 'https://cdn.jsdelivr.net/npm/realm-web@2.0.0/+esm'
 import router from './router.ts'
 import type { CloudflareRequest } from './CloudflareRequest.d.ts'
