@@ -202,12 +202,12 @@ const globalModules = [
 ]
 
 for (const globalModule of globalModules) {
-  if (bundledCode.includes(`Darkflare.${globalModule}`)) {
+  if (bundledCode.includes(`Core.${globalModule}`)) {
     darkflareNamespace += `${globalModule}: __global${globalModule},\n`
   }
 }
 
-bundledCode = `const Darkflare = {${darkflareNamespace}}\n` + bundledCode
+bundledCode = `const Core = {${darkflareNamespace}}\n` + bundledCode
 
 bundledCode = `import v from '${srcUrl}/v.ts'\n` + bundledCode
 bundledCode =
@@ -219,7 +219,7 @@ bundledCode = `import { Mail } from '${srcUrl}/Mail.ts'\n` +
   bundledCode
 
 for (const globalModule of globalModules) {
-  if (bundledCode.includes(`Darkflare.${globalModule}`)) {
+  if (bundledCode.includes(`Core.${globalModule}`)) {
     bundledCode =
       `import { ${globalModule} as __global${globalModule} } from '${srcUrl}/ext/${globalModule}.ts'\n` +
       bundledCode

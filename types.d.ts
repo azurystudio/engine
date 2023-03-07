@@ -1,4 +1,4 @@
-declare namespace Darkflare {
+declare namespace Core {
   export const jwt: typeof import('./ext/jwt.ts').default
   export const oauth2: typeof import('./ext/oauth2.ts').default
   export const otp: typeof import('./ext/otp.ts').default

@@ -23,31 +23,31 @@ export class Schema<T extends Record<string, unknown>> {
     filter?: globalThis.Realm.Services.MongoDB.Filter,
     options?: globalThis.Realm.Services.MongoDB.FindOptions,
   ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>)[]
+    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[]
   >
 
   public findOne: (
     filter?: globalThis.Realm.Services.MongoDB.Filter,
     options?: globalThis.Realm.Services.MongoDB.FindOneOptions,
   ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>) | null
+    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>) | null
   >
 
   public findOneAndDelete: (
     filter: globalThis.Realm.Services.MongoDB.Filter,
     options?: globalThis.Realm.Services.MongoDB.FindOneOptions,
   ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>) | null
+    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>) | null
   >
 
   public findOneAndReplace: (
     filter: globalThis.Realm.Services.MongoDB.Filter,
     replacement: globalThis.Realm.Services.MongoDB.NewDocument<
-      T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>
+      T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>
     >,
     options?: globalThis.Realm.Services.MongoDB.FindOneAndModifyOptions,
   ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>) | null
+    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>) | null
   >
 
   public findOneAndUpdate: (
@@ -55,16 +55,16 @@ export class Schema<T extends Record<string, unknown>> {
     update: globalThis.Realm.Services.MongoDB.Update,
     options?: globalThis.Realm.Services.MongoDB.FindOneAndModifyOptions,
   ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>) | null
+    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>) | null
   >
 
   public insertMany: (
     documents: globalThis.Realm.Services.MongoDB.NewDocument<
-      T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>
+      T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>
     >[],
   ) => Promise<
     globalThis.Realm.Services.MongoDB.InsertManyResult<
-      (T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>)[
+      (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[
         '_id'
       ]
     >
@@ -72,11 +72,11 @@ export class Schema<T extends Record<string, unknown>> {
 
   public insertOne: (
     document: globalThis.Realm.Services.MongoDB.NewDocument<
-      T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>
+      T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>
     >,
   ) => Promise<
     globalThis.Realm.Services.MongoDB.InsertOneResult<
-      (T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>)[
+      (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[
         '_id'
       ]
     >
@@ -88,7 +88,7 @@ export class Schema<T extends Record<string, unknown>> {
     options?: globalThis.Realm.Services.MongoDB.UpdateOptions,
   ) => Promise<
     globalThis.Realm.Services.MongoDB.UpdateResult<
-      (T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>)[
+      (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[
         '_id'
       ]
     >
@@ -100,7 +100,7 @@ export class Schema<T extends Record<string, unknown>> {
     options?: globalThis.Realm.Services.MongoDB.UpdateOptions,
   ) => Promise<
     globalThis.Realm.Services.MongoDB.UpdateResult<
-      (T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>)[
+      (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[
         '_id'
       ]
     >
@@ -110,7 +110,7 @@ export class Schema<T extends Record<string, unknown>> {
     options?: unknown,
   ) => AsyncGenerator<
     globalThis.Realm.Services.MongoDB.ChangeEvent<
-      T & globalThis.Realm.Services.MongoDB.Document<Darkflare.ObjectId>
+      T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>
     >,
     unknown,
     unknown
@@ -140,31 +140,31 @@ export class Schema<T extends Record<string, unknown>> {
   }
 
   async findById(
-    objectId: string | Darkflare.ObjectId,
+    objectId: string | Core.ObjectId,
   ) {
     if (typeof objectId === 'string') {
-      objectId = new Darkflare.ObjectId(objectId)
+      objectId = new Core.ObjectId(objectId)
     }
 
     return await this.findOneAndDelete({ _id: objectId })
   }
 
   async findByIdAndUpdate(
-    objectId: string | Darkflare.ObjectId,
+    objectId: string | Core.ObjectId,
     update: globalThis.Realm.Services.MongoDB.Update,
   ) {
     if (typeof objectId === 'string') {
-      objectId = new Darkflare.ObjectId(objectId)
+      objectId = new Core.ObjectId(objectId)
     }
 
     return await this.findOneAndUpdate({ _id: objectId }, update)
   }
 
   async findByIdAndDelete(
-    objectId: string | Darkflare.ObjectId,
+    objectId: string | Core.ObjectId,
   ) {
     if (typeof objectId === 'string') {
-      objectId = new Darkflare.ObjectId(objectId)
+      objectId = new Core.ObjectId(objectId)
     }
 
     return await this.findOneAndDelete({ _id: objectId })
