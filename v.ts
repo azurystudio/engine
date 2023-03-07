@@ -1,1 +1,1 @@
-export { default as v } from 'https://deno.land/x/typemap@v0.1.7/mod.ts'
+export { default as v } from 'https://deno.land/x/typemap@v0.1.8/mod.ts'
