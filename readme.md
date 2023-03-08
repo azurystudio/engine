@@ -13,7 +13,7 @@ setx DENO_AUTH_TOKENS github_pat_11AO4WNEQ0ABOu7k1U9rGS_XqA9jhiKtVWzIUUSl3pfZKKp
 ###### Production
 
 ```bash
-deno run -A https://raw.githubusercontent.com/azurystudio/engine/v0.1.3/build.ts
+deno run -A https://raw.githubusercontent.com/azurystudio/engine/v0.1.4/build.ts
 ```
 
 ###### Development
@@ -25,5 +25,5 @@ deno run -A https://raw.githubusercontent.com/azurystudio/engine/dev/build.ts
 #### 🗣️ Types
 
 ```
-https://raw.githubusercontent.com/azurystudio/engine/v0.1.3/engine.d.ts
+https://raw.githubusercontent.com/azurystudio/engine/v0.1.4/engine.d.ts
 ```
