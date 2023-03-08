@@ -3,15 +3,15 @@ declare namespace Core {
   export const oauth2: typeof import('./ext/oauth2.ts').oauth2
   export const otp: typeof import('./ext/otp.ts').otp
 
-  export const Schema: typeof import('./ext/Schema.ts').Schema
-  export class ObjectId extends (await import('./ext/ObjectId.ts')).ObjectId {}
-
   export const parseUserAgent:
     typeof import('./ext/parseUserAgent.ts').parseUserAgent
   export const sendMail: typeof import('./ext/sendMail.ts').sendMail
   export const encrypt: typeof import('./ext/encrypt.ts').encrypt
   export const decrypt: typeof import('./ext/decrypt.ts').decrypt
 }
+
+export const Schema: typeof import('./ext/Schema.ts').Schema
+export class ObjectId extends (await import('./ext/ObjectId.ts')).ObjectId {}
 
 declare type Configuration = import('./Configuration.d.ts').Configuration
 
