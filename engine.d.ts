@@ -11,8 +11,7 @@ declare namespace Core {
 }
 
 declare const Schema: typeof import('./ext/Schema.ts').Schema
-declare const ObjectId: typeof import('./ext/ObjectId.ts').ObjectId
-declare type ObjectId = import('./ext/ObjectId.ts').ObjectId
+declare class ObjectId extends (await import('./ext/ObjectId.ts')).ObjectId {}
 
 declare type Configuration = import('./Configuration.d.ts').Configuration
 
