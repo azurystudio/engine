@@ -10,8 +10,8 @@ declare namespace Core {
   export const decrypt: typeof import('./ext/decrypt.ts').decrypt
 }
 
-export const Schema: typeof import('./ext/Schema.ts').Schema
-export class ObjectId extends (await import('./ext/ObjectId.ts')).ObjectId {}
+declare const Schema: typeof import('./ext/Schema.ts').Schema
+declare const ObjectId: typeof import('./ext/ObjectId.ts').ObjectId
 
 declare type Configuration = import('./Configuration.d.ts').Configuration
 

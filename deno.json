@@ -2,7 +2,7 @@
   "compilerOptions": {
     "types": [
       "./env.d.ts",
-      "./core.d.ts",
+      "./engine.d.ts",
       "./window.d.ts"
     ]
   },
@@ -14,7 +14,7 @@
   },
   "tasks": {
     "test": "deno test -A --fail-fast",
-    "build": "cd test && deno run -A ../build.ts 38f21c0",
+    "build": "cd test && deno run -A ../build.ts 32bc3ac",
     "publish": "deno task build && npx wrangler publish test/worker.js"
   }
 }

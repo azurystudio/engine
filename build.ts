@@ -196,9 +196,7 @@ const globalModules = [
   'sendMail',
   'encrypt',
   'decrypt',
-  'ObjectId',
   'parseUserAgent',
-  'Schema',
 ]
 
 for (const globalModule of globalModules) {
@@ -216,6 +214,10 @@ bundledCode =
 bundledCode = `import { Cron } from '${srcUrl}/Cron.ts'\n` +
   bundledCode
 bundledCode = `import { Mail } from '${srcUrl}/Mail.ts'\n` +
+  bundledCode
+bundledCode = `import { Schema } from '${srcUrl}/ext/Schema.ts'\n` +
+  bundledCode
+bundledCode = `import { ObjectId } from '${srcUrl}/ext/ObjectId.ts'\n` +
   bundledCode
 
 for (const globalModule of globalModules) {
