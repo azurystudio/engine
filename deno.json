@@ -14,7 +14,7 @@
   },
   "tasks": {
     "test": "deno test -A --fail-fast",
-    "build": "cd test && deno run -A ../build.ts 32bc3ac",
+    "build": "cd test && deno run -A ../build.ts 3fc272b",
     "publish": "deno task build && npx wrangler publish test/worker.js"
   }
 }
