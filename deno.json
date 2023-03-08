@@ -2,7 +2,7 @@
   "compilerOptions": {
     "types": [
       "./env.d.ts",
-      "./types.d.ts",
+      "./core.d.ts",
       "./window.d.ts"
     ]
   },

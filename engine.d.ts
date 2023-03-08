@@ -1,7 +1,7 @@
 declare namespace Core {
-  export const jwt: typeof import('./ext/jwt.ts').default
-  export const oauth2: typeof import('./ext/oauth2.ts').default
-  export const otp: typeof import('./ext/otp.ts').default
+  export const jwt: typeof import('./ext/jwt.ts').jwt
+  export const oauth2: typeof import('./ext/oauth2.ts').oauth2
+  export const otp: typeof import('./ext/otp.ts').otp
 
   export const Schema: typeof import('./ext/Schema.ts').Schema
   export class ObjectId extends (await import('./ext/ObjectId.ts')).ObjectId {}
