@@ -1,4 +1,4 @@
-import { join } from 'https://deno.land/std@v0.178.0/path/mod.ts'
+import { join } from 'https://deno.land/std@v0.179.0/path/mod.ts'
 // @deno-types='https://cdn.jsdelivr.net/npm/@types/ms@0.7.31/index.d.ts'
 import ms from 'https://cdn.jsdelivr.net/npm/ms@2.1.3/+esm'
 // @deno-types='https://cdn.jsdelivr.net/npm/yaml@2.2.1/dist/index.d.ts'
