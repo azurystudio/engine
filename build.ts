@@ -23,11 +23,12 @@ for await (const path of files(Deno.cwd())) {
     continue
   }
 
-  const dest = path.replace(Deno.cwd(), tmpDir),
-    dirPath = slash(path.replace(Deno.cwd(), tmpDir))
-      .split('/')
-      .slice(0, -1)
-      .join('/')
+  const dest = path.replace(Deno.cwd(), tmpDir)
+
+  const dirPath = slash(path.replace(Deno.cwd(), tmpDir))
+    .split('/')
+    .slice(0, -1)
+    .join('/')
 
   await ensureDir(dirPath)
 
@@ -39,45 +40,46 @@ const srcUrl = `https://raw.githubusercontent.com/azurystudio/engine/${
 }`
 
 let workerString = (await (await fetch(`${srcUrl}/worker.ts`, {
-    headers: {
-      authorization: `bearer ${
-        Deno.env.get('DENO_AUTH_TOKENS')?.replace(
-          '@raw.githubusercontent.com',
-          '',
-        )
-      }`,
-    },
-  })).text())
-    .replace(
-      'config = (null as unknown)',
-      `config = ${JSON.stringify(config)}`,
-    )
-    .replace(
-      `import router from './router.ts'`,
-      `import router from '${srcUrl}/router.ts'`,
-    )
-    .replace(
-      `import type { CloudflareRequest } from './CloudflareRequest.d.ts'`,
-      `import type { CloudflareRequest } from '${srcUrl}/CloudflareRequest.d.ts'`,
-    )
-    .replace(
-      `import type { ParsedConfiguration } from './Configuration.d.ts'`,
-      `import type { ParsedConfiguration } from '${srcUrl}/Configuration.d.ts'`,
-    )
-    .replace(
-      `import type { CronContext } from './Cron.ts'`,
-      `import type { CronContext } from '${srcUrl}/Cron.ts'`,
-    )
-    .replace(
-      `import type { MailContext } from './Mail.ts'`,
-      `import type { MailContext } from '${srcUrl}/Mail.ts'`,
-    )
-    .replace(
-      `import type { Route } from './Route.d.ts'`,
-      `import type { Route } from '${srcUrl}/Route.d.ts'`,
-    ),
-  importString = '',
-  routesString = ''
+  headers: {
+    authorization: `bearer ${
+      Deno.env.get('DENO_AUTH_TOKENS')?.replace(
+        '@raw.githubusercontent.com',
+        '',
+      )
+    }`,
+  },
+})).text())
+  .replace(
+    'config = (null as unknown)',
+    `config = ${JSON.stringify(config)}`,
+  )
+  .replace(
+    `import router from './router.ts'`,
+    `import router from '${srcUrl}/router.ts'`,
+  )
+  .replace(
+    `import type { CloudflareRequest } from './CloudflareRequest.d.ts'`,
+    `import type { CloudflareRequest } from '${srcUrl}/CloudflareRequest.d.ts'`,
+  )
+  .replace(
+    `import type { ParsedConfiguration } from './Configuration.d.ts'`,
+    `import type { ParsedConfiguration } from '${srcUrl}/Configuration.d.ts'`,
+  )
+  .replace(
+    `import type { CronContext } from './Cron.ts'`,
+    `import type { CronContext } from '${srcUrl}/Cron.ts'`,
+  )
+  .replace(
+    `import type { MailContext } from './Mail.ts'`,
+    `import type { MailContext } from '${srcUrl}/Mail.ts'`,
+  )
+  .replace(
+    `import type { Route } from './Route.d.ts'`,
+    `import type { Route } from '${srcUrl}/Route.d.ts'`,
+  )
+
+let importString = ''
+let routesString = ''
 
 // attach routes
 const isDir = async (path: string) => {
@@ -189,8 +191,9 @@ await build({
   outfile: join(Deno.cwd(), './worker.js'),
   absWorkingDir: tmpDir,
   banner: {
-    js: '// @ts-nocheck\n// deno-fmt-ignore-file\n// deno-lint-ignore-file\nvar window={__d:{}};' // disable type checking/linting/formatting
-  }
+    js:
+      '// @ts-nocheck\n// deno-fmt-ignore-file\n// deno-lint-ignore-file\nvar window={__d:{}};', // disable type checking/linting/formatting
+  },
 })
 
 stop()

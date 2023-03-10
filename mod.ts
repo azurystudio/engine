@@ -6,7 +6,14 @@ export { ObjectId } from './ext/ObjectId.ts'
 export { otp } from './ext/otp.ts'
 export { Schema } from './ext/Schema.ts'
 export { sendMail } from './ext/sendMail.ts'
-export { route as Get, route as Delete, route as Head, route as Put, route as Patch, route as Post } from './route.ts'
+export {
+  route as Delete,
+  route as Get,
+  route as Head,
+  route as Patch,
+  route as Post,
+  route as Put,
+} from './route.ts'
 export { default as v } from 'https://deno.land/x/typemap@v0.1.10/mod.ts'
 export { Mail } from './Mail.ts'
 export { Cron } from './Cron.ts'
