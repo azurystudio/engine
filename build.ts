@@ -1,7 +1,8 @@
 import { join, resolve } from 'https://deno.land/std@v0.179.0/path/mod.ts'
 import { italic } from 'https://deno.land/std@v0.179.0/fmt/colors.ts'
 import { ensureDir } from 'https://deno.land/std@v0.179.0/fs/mod.ts'
-import { build } from 'https://deno.land/x/esbuild@v0.17.11/mod.js'
+import { build, stop } from 'https://deno.land/x/esbuild@v0.17.11/mod.js'
+import { denoPlugin } from 'https://deno.land/x/esbuild_deno_loader@0.6.0/mod.ts'
 import { success, warn } from 'https://deno.land/x/drgn@v0.10.1/mod.ts'
 import files from 'https://deno.land/x/read_files@v0.1.0/mod.ts'
 import byte from 'https://deno.land/x/byte@v3.0.0/byte.ts'
@@ -170,87 +171,29 @@ try {
   // there's no mail handler
 }
 
-// create javascript bundle with globals
+// create javascript bundle
 await Deno.writeTextFile(
   join(tmpDir, './worker.ts'),
   importString + workerString,
 )
 
-await Deno.create(join(tmpDir, './bundle.js'))
-
-await Deno.run({
-  cmd: ['deno', 'bundle', '-q', './worker.ts', './bundle.js'],
-  cwd: tmpDir,
-}).status()
-
-// define globals
-let bundledCode = await Deno.readTextFile(join(tmpDir, './bundle.js'))
-
-// global utilities
-let darkflareNamespace = ''
-
-const globalModules = [
-  'jwt',
-  'oauth2',
-  'otp',
-  'sendMail',
-  'encrypt',
-  'decrypt',
-  'parseUserAgent',
-]
-
-for (const globalModule of globalModules) {
-  if (bundledCode.includes(`Core.${globalModule}`)) {
-    darkflareNamespace += `${globalModule}: __global${globalModule},\n`
-  }
-}
-
-bundledCode = `const Core = {${darkflareNamespace}}\n` + bundledCode
-
-bundledCode = `import v from 'https://deno.land/x/typemap@v0.1.10/mod.ts'\n` + bundledCode
-bundledCode =
-  `import { route as Delete, route as Get, route as Head, route as Patch, route as Post, route as Put } from '${srcUrl}/route.ts'\n` +
-  bundledCode
-bundledCode = `import { Cron } from '${srcUrl}/Cron.ts'\n` +
-  bundledCode
-bundledCode = `import { Mail } from '${srcUrl}/Mail.ts'\n` +
-  bundledCode
-bundledCode = `import { Schema } from '${srcUrl}/ext/Schema.ts'\n` +
-  bundledCode
-bundledCode = `import { ObjectId } from '${srcUrl}/ext/ObjectId.ts'\n` +
-  bundledCode
-
-for (const globalModule of globalModules) {
-  if (bundledCode.includes(`Core.${globalModule}`)) {
-    bundledCode =
-      `import { ${globalModule} as __global${globalModule} } from '${srcUrl}/ext/${globalModule}.ts'\n` +
-      bundledCode
-  }
-}
-
-await Deno.writeTextFile(join(tmpDir, './bundle.js'), bundledCode)
-
-await Deno.create(join(tmpDir, './bundle.final.js'))
-
-await Deno.run({
-  cmd: ['deno', 'bundle', '-q', './bundle.js', './bundle.final.js'],
-  cwd: tmpDir,
-}).status()
-
-// create final javascript bundle
-
 await build({
-  entryPoints: [join(tmpDir, './bundle.final.js')],
+  entryPoints: ['./worker.ts'],
   minify: true,
   allowOverwrite: true,
   legalComments: 'none',
+  // @ts-ignore: outdated types
+  plugins: [denoPlugin()],
   format: 'esm',
   target: 'es2020',
   outfile: join(Deno.cwd(), './worker.js'),
+  absWorkingDir: tmpDir,
   banner: {
     js: '// @ts-nocheck\n// deno-fmt-ignore-file\n// deno-lint-ignore-file\nvar window={__d:{}};' // disable type checking/linting/formatting
   }
 })
+
+stop()
 
 // remove temporary directory to save storage
 await Deno.remove(tmpDir, { recursive: true })
@@ -263,5 +206,3 @@ if (size < byte('5 MB')) {
 } else {
   await warn(`your worker script is too large ${italic(byte(size))}`)
 }
-
-Deno.exit()
