@@ -7,12 +7,12 @@ import { success, warn } from 'https://deno.land/x/drgn@v0.10.1/mod.ts'
 import files from 'https://deno.land/x/read_files@v0.1.0/mod.ts'
 import byte from 'https://deno.land/x/byte@v3.0.0/byte.ts'
 import { slash } from './_utilities/slash.ts'
-import { parseConfiguration } from './parseConfiguration.ts'
+import { parseConfig } from './parseConfig.ts'
 import { parseRoute } from './parseRoute.ts'
 import version from './version.json' assert { type: 'json' }
 
-const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' }),
-  config = await parseConfiguration(tmpDir)
+const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' })
+const config = await parseConfig(tmpDir)
 
 // copy files to temporary directory
 for await (const path of files(Deno.cwd())) {

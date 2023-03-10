@@ -17,3 +17,4 @@ export {
 export { default as v } from 'https://deno.land/x/typemap@v0.1.10/mod.ts'
 export { Mail } from './Mail.ts'
 export { Cron } from './Cron.ts'
+export type { Configuration } from './Configuration.d.ts'

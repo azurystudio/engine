@@ -2,7 +2,7 @@ export interface Configuration {
   name?: string
   base?: string
   cors?: string
-  cache?: string | number
+  cache?: string
 }
 
 export interface ParsedConfiguration {
