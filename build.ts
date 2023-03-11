@@ -173,6 +173,8 @@ try {
   // there's no mail handler
 }
 
+importString += `import { AccessDenied, BadRequest, MalformedRequest, NotFound, PayloadTooLarge, ServiceUnavailable, SomethingWentWrong, Unauthorized } from '${srcUrl}/errors.ts'\n`
+
 // create javascript bundle
 await Deno.writeTextFile(
   join(tmpDir, './worker.ts'),

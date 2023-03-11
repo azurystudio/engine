@@ -2,28 +2,6 @@ import { isValid, TypeSchema } from 'https://deno.land/x/typemap@v0.1.10/mod.ts'
 import type { FetchContext } from './FetchContext.d.ts'
 import type { Route } from './Route.d.ts'
 
-const errorCodes = {
-  'Access Denied': 403,
-  'Bad Request': 400,
-  'Malformed Request': 405,
-  'Not Found': 404,
-  'Payload Too Large': 413,
-  'Service Unavailable': 503,
-  'Something Went Wrong': 500,
-  'Unauthorized': 401,
-}
-
-const errorMessages = {
-  403: 'Access Denied',
-  400: 'Bad Request',
-  405: 'Malformed Request',
-  404: 'Not Found',
-  413: 'Payload Too Large',
-  503: 'Service Unavailable',
-  500: 'Something Went Wrong',
-  401: 'Unauthorized',
-}
-
 export function route<
   ParsedBody = unknown,
   ParsedQuery = unknown,
@@ -114,26 +92,6 @@ export function route<
         env,
         waitUntil,
         data: new Map(),
-
-        error(error) {
-          const code = typeof error === 'string' ? errorCodes[error] : error,
-            message = typeof error === 'string'
-              ? error.toLowerCase().split('_').map((word) =>
-                word[0].toUpperCase() + word.substring(1)
-              ).join(' ')
-              : errorMessages[error]
-
-          if (headers.accept?.includes('application/json')) {
-            return {
-              code,
-              message,
-            }
-          }
-
-          c = code
-
-          return message
-        },
 
         req: {
           raw() {

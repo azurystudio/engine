@@ -16,29 +16,6 @@ export interface FetchContext<
 > extends Context {
   data: Map<unknown, unknown>
 
-  error: (
-    errorMessage:
-      | 'Access Denied'
-      | 'Bad Request'
-      | 'Malformed Request'
-      | 'Not Found'
-      | 'Payload Too Large'
-      | 'Service Unavailable'
-      | 'Something Went Wrong'
-      | 'Unauthorized'
-      | 403
-      | 400
-      | 405
-      | 404
-      | 413
-      | 503
-      | 500
-      | 401,
-  ) => {
-    code: number
-    message: string
-  }
-
   req: Merge<
     {
       raw: () => CloudflareRequest
