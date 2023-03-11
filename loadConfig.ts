@@ -10,6 +10,6 @@ export async function parseConfiguration(
     name: config.name ?? await nanoid(16),
     base: config.base,
     cors: config.cors,
-    cache: config.cache ? ms(config.cache as string) / 1000 : 0,
+    cache: config.cache ? Math.round(ms(config.cache as string) / 1000) : 0,
   }
 }

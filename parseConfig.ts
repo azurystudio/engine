@@ -6,7 +6,7 @@ export async function parseConfig(
 ): Promise<ParsedConfiguration> {
   await Deno.writeTextFile('./compileConfig.ts', 
     `
-    import config from './darkflare.ts'
+    import config from './mod.ts'
     import { loadConfig } from 'https://raw.githubusercontent.com/azurystudio/engine/v0.3.0/loadConfig.ts'
 
     await Deno.writeTextFile('./config.json', loadConfig(config))
