@@ -1,15 +1,15 @@
-import { join, resolve } from 'https://deno.land/std@v0.179.0/path/mod.ts'
 import { italic } from 'https://deno.land/std@v0.179.0/fmt/colors.ts'
 import { ensureDir } from 'https://deno.land/std@v0.179.0/fs/mod.ts'
+import { join, resolve } from 'https://deno.land/std@v0.179.0/path/mod.ts'
+import byte from 'https://deno.land/x/byte@v3.0.0/byte.ts'
+import { success, warn } from 'https://deno.land/x/drgn@v0.10.1/mod.ts'
 import { build, stop } from 'https://deno.land/x/esbuild@v0.17.11/mod.js'
 import { denoPlugin } from 'https://deno.land/x/esbuild_deno_loader@0.6.0/mod.ts'
-import { success, warn } from 'https://deno.land/x/drgn@v0.10.1/mod.ts'
 import files from 'https://deno.land/x/read_files@v0.1.0/mod.ts'
-import byte from 'https://deno.land/x/byte@v3.0.0/byte.ts'
-import { slash } from './_utilities/slash.ts'
 import { parseConfig } from './parseConfig.ts'
 import { parseRoute } from './parseRoute.ts'
 import version from './version.json' assert { type: 'json' }
+import { slash } from './_utilities/slash.ts'
 
 const tmpDir = await Deno.makeTempDir({ prefix: 'darkflare-' })
 const config = await parseConfig(tmpDir)
@@ -173,7 +173,8 @@ try {
   // there's no mail handler
 }
 
-importString += `import { AccessDenied, BadRequest, MalformedRequest, NotFound, PayloadTooLarge, ServiceUnavailable, SomethingWentWrong, Unauthorized } from '${srcUrl}/errors.ts'\n`
+importString +=
+  `import { AccessDenied, BadRequest, MalformedRequest, NotFound, PayloadTooLarge, ServiceUnavailable, SomethingWentWrong, Unauthorized } from '${srcUrl}/errors.ts'\n`
 
 // create javascript bundle
 await Deno.writeTextFile(

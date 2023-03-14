@@ -121,8 +121,9 @@ async function router(
 
     return handleError('Not Found', request)
   } catch (err) {
-    if (err instanceof Response)
+    if (err instanceof Response) {
       return err
+    }
 
     if (!(err instanceof Error) || !err.message.startsWith('Malformed')) {
       console.log(err)

@@ -4,7 +4,7 @@ import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid@4.0.1/async/index.br
 import type { Configuration, ParsedConfiguration } from './Configuration.d.ts'
 
 export async function parseConfiguration(
-  config: Configuration
+  config: Configuration,
 ): Promise<ParsedConfiguration> {
   return {
     name: config.name ?? await nanoid(16),

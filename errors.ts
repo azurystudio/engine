@@ -1,13 +1,16 @@
 function createResponse(message: string, code: number) {
-  return new Response(JSON.stringify({
-    code,
-    message,
-  }), {
-    status: code,
-    headers: {
-      'content-type': 'application/json; charset=utf-8;'
-    }
-  })
+  return new Response(
+    JSON.stringify({
+      code,
+      message,
+    }),
+    {
+      status: code,
+      headers: {
+        'content-type': 'application/json; charset=utf-8;',
+      },
+    },
+  )
 }
 
 export function AccessDenied() {
