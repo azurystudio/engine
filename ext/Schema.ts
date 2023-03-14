@@ -1,172 +1,106 @@
 /// <reference types='../window.d.ts' />
 /// <reference types='./realm.d.ts' />
 
-export class Schema<T extends Record<string, unknown>> {
-  public aggregate: (
-    pipeline: globalThis.Realm.Services.MongoDB.AggregatePipelineStage[],
-  ) => Promise<unknown>
+import { ObjectId } from './ObjectId.ts'
+
+type Data<Document> = Document & {
+  [key: string]: unknown
+}
+
+type Document<T> = {
+  _id: ObjectId
+  created_at: string
+  updated_at: string
+} & T
+
+export class Schema<T> {
+  private collection
 
   public count: (
-    filter?: globalThis.Realm.Services.MongoDB.Filter,
-    options?: globalThis.Realm.Services.MongoDB.CountOptions,
+    filter?: Data<Document<T>>,
+    options?: Realm.Services.MongoDB.CountOptions,
   ) => Promise<number>
 
   public deleteMany: (
-    filter: globalThis.Realm.Services.MongoDB.Filter,
-  ) => Promise<globalThis.Realm.Services.MongoDB.DeleteResult>
+    filter: Data<Document<T>>,
+  ) => Promise<Realm.Services.MongoDB.DeleteResult>
 
   public deleteOne: (
-    filter: globalThis.Realm.Services.MongoDB.Filter,
-  ) => Promise<globalThis.Realm.Services.MongoDB.DeleteResult>
+    filter: Data<Document<T>>,
+  ) => Promise<Realm.Services.MongoDB.DeleteResult>
 
   public find: (
-    filter?: globalThis.Realm.Services.MongoDB.Filter,
-    options?: globalThis.Realm.Services.MongoDB.FindOptions,
-  ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[]
-  >
+    filter?: Data<Document<T>>,
+    options?: Realm.Services.MongoDB.FindOptions,
+  ) => Promise<Document<T>[]>
 
   public findOne: (
-    filter?: globalThis.Realm.Services.MongoDB.Filter,
-    options?: globalThis.Realm.Services.MongoDB.FindOneOptions,
-  ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>) | null
-  >
+    filter?: Data<Document<T>>,
+    options?: Realm.Services.MongoDB.FindOneOptions,
+  ) => Promise<Document<T> | null>
 
   public findOneAndDelete: (
-    filter: globalThis.Realm.Services.MongoDB.Filter,
-    options?: globalThis.Realm.Services.MongoDB.FindOneOptions,
-  ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>) | null
-  >
-
-  public findOneAndReplace: (
-    filter: globalThis.Realm.Services.MongoDB.Filter,
-    replacement: globalThis.Realm.Services.MongoDB.NewDocument<
-      T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>
-    >,
-    options?: globalThis.Realm.Services.MongoDB.FindOneAndModifyOptions,
-  ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>) | null
-  >
-
-  public findOneAndUpdate: (
-    filter: globalThis.Realm.Services.MongoDB.Filter,
-    update: globalThis.Realm.Services.MongoDB.Update,
-    options?: globalThis.Realm.Services.MongoDB.FindOneAndModifyOptions,
-  ) => Promise<
-    (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>) | null
-  >
-
-  public insertMany: (
-    documents: globalThis.Realm.Services.MongoDB.NewDocument<
-      T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>
-    >[],
-  ) => Promise<
-    globalThis.Realm.Services.MongoDB.InsertManyResult<
-      (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[
-        '_id'
-      ]
-    >
-  >
-
-  public insertOne: (
-    document: globalThis.Realm.Services.MongoDB.NewDocument<
-      T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>
-    >,
-  ) => Promise<
-    globalThis.Realm.Services.MongoDB.InsertOneResult<
-      (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[
-        '_id'
-      ]
-    >
-  >
-
-  public updateMany: (
-    filter: globalThis.Realm.Services.MongoDB.Filter,
-    update: globalThis.Realm.Services.MongoDB.Update,
-    options?: globalThis.Realm.Services.MongoDB.UpdateOptions,
-  ) => Promise<
-    globalThis.Realm.Services.MongoDB.UpdateResult<
-      (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[
-        '_id'
-      ]
-    >
-  >
-
-  public updateOne: (
-    filter: globalThis.Realm.Services.MongoDB.Filter,
-    update: globalThis.Realm.Services.MongoDB.Update,
-    options?: globalThis.Realm.Services.MongoDB.UpdateOptions,
-  ) => Promise<
-    globalThis.Realm.Services.MongoDB.UpdateResult<
-      (T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>)[
-        '_id'
-      ]
-    >
-  >
-
-  public watch: (
-    options?: unknown,
-  ) => AsyncGenerator<
-    globalThis.Realm.Services.MongoDB.ChangeEvent<
-      T & globalThis.Realm.Services.MongoDB.Document<Core.ObjectId>
-    >,
-    unknown,
-    unknown
-  >
+    filter: Data<Document<T>>,
+    options?: Realm.Services.MongoDB.FindOneOptions | undefined,
+  ) => Promise<Document<T> | null>
 
   constructor(name: string) {
     if (!window.__d.database) {
       throw new Error('Please configure the realm module!')
     }
 
-    const collection = window.__d.database.collection(name)
+    this.collection = window.__d.database.collection<Document<T>>(
+      name,
+    )
 
-    this.aggregate = collection.aggregate
-    this.count = collection.count
-    this.deleteMany = collection.deleteMany
-    this.deleteOne = collection.deleteOne
-    this.find = collection.find
-    this.findOne = collection.findOne
-    this.findOneAndDelete = collection.findOneAndDelete
-    this.findOneAndReplace = collection.findOneAndReplace
-    this.findOneAndUpdate = collection.findOneAndUpdate
-    this.insertMany = collection.insertMany
-    this.insertOne = collection.insertOne
-    this.updateMany = collection.updateMany
-    this.updateOne = collection.updateOne
-    this.watch = collection.watch
+    this.count = this.collection.count
+    this.deleteMany = this.collection.deleteMany
+    this.deleteOne = this.collection.deleteOne
+    this.find = this.collection.find
+    this.findOne = this.collection.findOne
+    this.findOneAndDelete = this.collection.findOneAndDelete
   }
 
-  async findById(
-    objectId: string | Core.ObjectId,
-  ) {
-    if (typeof objectId === 'string') {
-      objectId = new Core.ObjectId(objectId)
-    }
+  async insertOne(
+    document: Omit<Document<T>, '_id'>,
+  ): Promise<Realm.Services.MongoDB.InsertOneResult<ObjectId>> {
+    const date = new Date().toISOString()
 
-    return await this.findOneAndDelete({ _id: objectId })
+    // @ts-ignore:
+    document.created_at = date
+    // @ts-ignore:
+    document.updated_at = date
+
+    return await this.collection.insertOne(document)
   }
 
-  async findByIdAndUpdate(
-    objectId: string | Core.ObjectId,
-    update: globalThis.Realm.Services.MongoDB.Update,
-  ) {
-    if (typeof objectId === 'string') {
-      objectId = new Core.ObjectId(objectId)
-    }
+  async updateOne(
+    filter: Data<Document<T>>,
+    update: Data<Document<T>>,
+    options?: Realm.Services.MongoDB.FindOneAndModifyOptions,
+  ): Promise<Realm.Services.MongoDB.UpdateResult<ObjectId>> {
+    update.updated_at = new Date().toISOString()
 
-    return await this.findOneAndUpdate({ _id: objectId }, update)
+    return await this.collection.updateOne(filter, update, options)
   }
 
-  async findByIdAndDelete(
-    objectId: string | Core.ObjectId,
-  ) {
-    if (typeof objectId === 'string') {
-      objectId = new Core.ObjectId(objectId)
-    }
+  async updateMany(
+    filter: Data<Document<T>>,
+    update: Data<Document<T>>,
+    options?: Realm.Services.MongoDB.UpdateOptions,
+  ): Promise<Realm.Services.MongoDB.UpdateResult<ObjectId>> {
+    update.updated_at = new Date().toISOString()
 
-    return await this.findOneAndDelete({ _id: objectId })
+    return await this.collection.updateMany(filter, update, options)
+  }
+
+  async findOneAndUpdate(
+    filter: Data<Document<T>>,
+    update: Data<Document<T>>,
+    options?: Realm.Services.MongoDB.FindOneAndModifyOptions,
+  ): Promise<Document<T> | null> {
+    update.updated_at = new Date().toISOString()
+
+    return await this.collection.findOneAndUpdate(filter, update, options)
   }
 }
