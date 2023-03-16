@@ -1,4 +1,4 @@
-import { assertEquals } from 'https://deno.land/std@v0.179.0/testing/asserts.ts'
+import { assertEquals } from 'https://deno.land/std@v0.180.0/testing/asserts.ts'
 // @deno-types='https://cdn.jsdelivr.net/npm/nanoid@4.0.1/async/index.d.ts'
 import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid@4.0.1/async/index.browser.js/+esm'
 import { encrypt } from './encrypt.ts'
