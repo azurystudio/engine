@@ -1,4 +1,4 @@
-import { build } from 'https://deno.land/x/esbuild@v0.17.11/mod.js'
+import { build } from 'https://deno.land/x/esbuild@v0.17.12/mod.js'
 import { slash } from './_utilities/slash.ts'
 import { italic } from 'https://deno.land/std@v0.180.0/fmt/colors.ts'
 
