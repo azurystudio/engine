@@ -1,4 +1,4 @@
-import { join } from 'https://deno.land/std@v0.180.0/path/mod.ts'
+import { join } from 'https://deno.land/std@v0.181.0/path/mod.ts'
 import type { ParsedConfiguration } from './Configuration.d.ts'
 
 export async function parseConfig(
