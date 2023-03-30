@@ -31,7 +31,7 @@ interface LogicalQueryOperators<Document> {
 
 type Data<Document> = Partial<Document> & {
   [key: string]: unknown
-} & QueryOperators<Document>
+} & QueryOperators<Partial<Document>>
 
 type Document<T> = {
   _id: ObjectId
