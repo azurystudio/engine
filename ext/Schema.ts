@@ -3,14 +3,45 @@
 
 import { ObjectId } from './ObjectId.ts'
 
+// these types do not guarantee full typesafety, they only aim to enhance it
+
+type QueryOperators<Document> =
+  & {
+    // comparison query
+    [K in keyof Document]: {
+      $eq?: unknown
+      $gt?: number
+      $gte?: number
+      $in?: unknown
+      $lt?: number
+      $lte?: number
+      $ne?: unknown
+      $nin?: unknown
+    }
+  }
+  & LogicalQueryOperators<Document>
+
+interface LogicalQueryOperators<Document> {
+  // logical query
+  $and: unknown
+  $not: unknown
+  $nor: unknown
+  $or: unknown
+}
+
 type Data<Document> = Partial<Document> & {
   [key: string]: unknown
-}
+} & QueryOperators<Document>
 
 type Document<T> = {
   _id: ObjectId
   created_at: string
   updated_at: string
+} & T
+
+type DocumentWithOptionalTimestamps<T> = {
+  created_at?: string
+  updated_at?: string
 } & T
 
 export class Schema<T> {
@@ -62,14 +93,19 @@ export class Schema<T> {
   }
 
   async insertOne(
-    document: Omit<Document<T>, '_id' | 'created_at' | 'updated_at'>,
+    document: DocumentWithOptionalTimestamps<T>,
   ): Promise<Realm.Services.MongoDB.InsertOneResult<ObjectId>> {
     const date = new Date().toISOString()
 
     // @ts-ignore:
-    document.created_at = date
+    if (!document.created_at) {
+      // @ts-ignore:
+      document.created_at = date
+    }
+
     // @ts-ignore:
-    document.updated_at = date
+    document.updated_at = document.created_at
+
     // @ts-ignore:
     return await this.collection.insertOne(document)
   }
@@ -79,8 +115,10 @@ export class Schema<T> {
     update: Data<Document<T>>,
     options?: Realm.Services.MongoDB.FindOneAndModifyOptions,
   ): Promise<Realm.Services.MongoDB.UpdateResult<ObjectId>> {
-    // @ts-ignore:
-    update.updated_at = new Date().toISOString()
+    if (!update.updated_at) {
+      // @ts-ignore:
+      update.updated_at = new Date().toISOString()
+    }
 
     return await this.collection.updateOne(filter, update, options)
   }
@@ -90,8 +128,10 @@ export class Schema<T> {
     update: Data<Document<T>>,
     options?: Realm.Services.MongoDB.UpdateOptions,
   ): Promise<Realm.Services.MongoDB.UpdateResult<ObjectId>> {
-    // @ts-ignore:
-    update.updated_at = new Date().toISOString()
+    if (!update.updated_at) {
+      // @ts-ignore:
+      update.updated_at = new Date().toISOString()
+    }
 
     return await this.collection.updateMany(filter, update, options)
   }
@@ -101,8 +141,10 @@ export class Schema<T> {
     update: Data<Document<T>>,
     options?: Realm.Services.MongoDB.FindOneAndModifyOptions,
   ): Promise<Document<T> | null> {
-    // @ts-ignore:
-    update.updated_at = new Date().toISOString()
+    if (!update.updated_at) {
+      // @ts-ignore:
+      update.updated_at = new Date().toISOString()
+    }
 
     return await this.collection.findOneAndUpdate(filter, update, options)
   }
