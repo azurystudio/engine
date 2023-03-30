@@ -17,6 +17,7 @@ export {
 export { default as v } from 'https://deno.land/x/typemap@v0.1.11/mod.ts'
 export { Mail } from './Mail.ts'
 export { Cron } from './Cron.ts'
+export { AccessDenied, BadRequest, MalformedRequest, NotFound, PayloadTooLarge, ServiceUnavailable, SomethingWentWrong, Unauthorized } from './errors.ts'
 export type { Configuration } from './Configuration.d.ts'
 export type { CronContext } from './Cron.ts'
 export type { FetchContext } from './FetchContext.d.ts'
