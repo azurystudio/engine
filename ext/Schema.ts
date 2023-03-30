@@ -5,33 +5,37 @@ import { ObjectId } from './ObjectId.ts'
 
 // these types do not guarantee full typesafety, they only aim to enhance it
 
-type QueryOperators<Document> =
-  & {
-    // comparison query
-    [K in keyof Document]: {
-      $eq?: unknown
-      $gt?: number
-      $gte?: number
-      $in?: unknown
-      $lt?: number
-      $lte?: number
-      $ne?: unknown
-      $nin?: unknown
-    }
-  }
-  & LogicalQueryOperators<Document>
+// type QueryOperators<Document> =
+//   & {
+//     // comparison query
+//     [K in keyof Document]: {
+//       $eq?: unknown
+//       $gt?: number
+//       $gte?: number
+//       $in?: unknown
+//       $lt?: number
+//       $lte?: number
+//       $ne?: unknown
+//       $nin?: unknown
+//     }
+//   }
+//   & LogicalQueryOperators<Document>
 
-interface LogicalQueryOperators<Document> {
-  // logical query
-  $and: unknown
-  $not: unknown
-  $nor: unknown
-  $or: unknown
-}
+// interface LogicalQueryOperators<Document> {
+//   // logical query
+//   $and: unknown
+//   $not: unknown
+//   $nor: unknown
+//   $or: unknown
+// }
 
-type Data<Document> = Partial<Document> & {
+// type Data<Document> = Partial<Document> & {
+//   [key: string]: unknown
+// } & QueryOperators<Partial<Document>>
+
+type Data<Document> = {
   [key: string]: unknown
-} & QueryOperators<Partial<Document>>
+}
 
 type Document<T> = {
   _id: ObjectId
