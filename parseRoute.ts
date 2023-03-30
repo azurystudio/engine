@@ -30,7 +30,7 @@ export async function parseRoute(path: string): Promise<[string, string]> {
     let url = slash(path)
       .replaceAll('[', ':')
       .replaceAll(']', '')
-      .substring(path.indexOf('api') + 3)
+      .substring(path.indexOf('pages') + 5)
       .replace('/mod', '')
       .replace('.ts', '')
 
@@ -49,7 +49,7 @@ export async function parseRoute(path: string): Promise<[string, string]> {
       if (exportedModules.includes(`${method}_${name}`)) {
         routesString += `[${i}, '${url}', ${method}_${name}],`
         importString += `import { ${method}_${name} } from './${
-          slash(path.substring(path.indexOf('api')))
+          slash(path.substring(path.indexOf('pages')))
         }'\n`
       }
     }

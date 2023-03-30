@@ -90,8 +90,8 @@ const isDir = async (path: string) => {
   }
 }
 
-if (await isDir(join(tmpDir, './api'))) {
-  for await (const file of files(join(tmpDir, './api'))) {
+if (await isDir(join(tmpDir, './pages'))) {
+  for await (const file of files(join(tmpDir, './pages'))) {
     if (
       !file.endsWith('.ts') || file.endsWith('.d.ts') ||
       file.endsWith('.test.ts')
@@ -172,9 +172,6 @@ try {
 } catch (_err) {
   // there's no mail handler
 }
-
-importString +=
-  `import { AccessDenied, BadRequest, MalformedRequest, NotFound, PayloadTooLarge, ServiceUnavailable, SomethingWentWrong, Unauthorized } from '${srcUrl}/errors.ts'\n`
 
 // create javascript bundle
 await Deno.writeTextFile(
