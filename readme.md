@@ -5,7 +5,7 @@
 #### Usage
 
 ```ts
-import { ... } from 'https://raw.githubusercontent.com/azurystudio/engine/v0.5.0/mod.ts'
+import { ... } from 'https://deno.land/x/engine/v0.6.0/mod.ts'
 ```
 
 #### Build
@@ -13,7 +13,7 @@ import { ... } from 'https://raw.githubusercontent.com/azurystudio/engine/v0.5.0
 ###### Production
 
 ```bash
-deno run -A https://raw.githubusercontent.com/azurystudio/engine/v0.5.0/build.ts
+deno run -A https://deno.land/x/engine/v0.6.0/build.ts
 ```
 
 ###### Development
