@@ -3,7 +3,7 @@
 #### Usage
 
 ```ts
-import { Get } from 'https://raw.githubusercontent.com/azurystudio/engine/v0.5.0/mod.ts'
+import { ... } from 'https://raw.githubusercontent.com/azurystudio/engine/v0.5.0/mod.ts'
 ```
 
 #### Build
