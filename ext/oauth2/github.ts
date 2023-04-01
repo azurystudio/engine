@@ -1,5 +1,5 @@
-import { stringifyQueryParams } from '../../_utilities/stringifyQueryParams.ts'
-import type { FetchContext } from '../../FetchContext.d.ts'
+import { stringifyQuery } from './_stringifyQuery.ts'
+import type { FetchContext } from '../../types.d.ts'
 
 export interface GithubUser {
   id: number
@@ -107,7 +107,7 @@ const github = {
       throw new Error('Please configure the oauth2 module!')
     }
 
-    const query = stringifyQueryParams({
+    const query = stringifyQuery({
       client_id: clientId,
       scope: (scope ?? ['read:user']).join(' '),
       allow_signup: true,

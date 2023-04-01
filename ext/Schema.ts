@@ -43,10 +43,12 @@ type Document<T> = {
   updated_at: string
 } & T
 
-type DocumentWithOptionalTimestamps<T> = Omit<T, '_id' | 'created_at' | 'updated_at'> & {
-  created_at?: string
-  updated_at?: string
-}
+type DocumentWithOptionalTimestamps<T> =
+  & Omit<T, '_id' | 'created_at' | 'updated_at'>
+  & {
+    created_at?: string
+    updated_at?: string
+  }
 
 export class Schema<T> {
   private collection

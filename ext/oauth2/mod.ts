@@ -1,5 +1,5 @@
-import github, { GithubUser } from './oauth2/github.ts'
-import type { FetchContext } from '../FetchContext.d.ts'
+import github, { GithubUser } from './github.ts'
+import type { FetchContext } from '../../types.d.ts'
 
 type oAuth2Provider = 'github'
 
