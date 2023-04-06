@@ -1,4 +1,4 @@
-import { assertEquals } from 'https://deno.land/std@v0.181.0/testing/asserts.ts'
+import { assertEquals } from 'https://deno.land/std@v0.182.0/testing/asserts.ts'
 // @deno-types='https://cdn.jsdelivr.net/npm/nanoid@4.0.2/async/index.d.ts'
 import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid@4.0.2/async/index.browser.js/+esm'
 import { jwt } from './jwt.ts'

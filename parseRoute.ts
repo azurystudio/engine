@@ -1,6 +1,6 @@
-import { build } from 'https://deno.land/x/esbuild@v0.17.14/mod.js'
+import { build } from 'https://deno.land/x/esbuild@v0.17.15/mod.js'
 import { slash } from './_utilities/slash.ts'
-import { italic } from 'https://deno.land/std@v0.181.0/fmt/colors.ts'
+import { italic } from 'https://deno.land/std@v0.182.0/fmt/colors.ts'
 
 export async function parseRoute(path: string): Promise<[string, string]> {
   try {
